@@ -91,14 +91,20 @@ class WebServer:
                         callback, arg_list = self.__router[method][uri]
                         response = Response(conn)
                         print("calling bound method")
-                        kwargs = get_function_kwargs(arg_list, request, response):
-                        result = callback(**kwargs)
-                        print("complete")
+                        kwargs = get_function_kwargs(arg_list, request, response)
+                        try:
+                            result = callback(**kwargs)
+                            print("complete")
 
-                        if not response.body_set:
-                            response.set_body(result)
-                        if not response.status_set:
-                            response.set_status(200)
+                            if not response.body_set:
+                                response.set_body(result)
+                            if not response.status_set:
+                                response.set_status(200)
+                        except Exception as err:
+                            print(err)
+                            response.set_body(str(err))
+                            response.set_status(500)
+
 
                         print(response)
                         response.send()

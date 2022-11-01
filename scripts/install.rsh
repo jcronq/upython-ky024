@@ -1,1 +1,1 @@
-rsync rgb_sensor /pyboard
+rsync sensor /pyboard

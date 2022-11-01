@@ -9,13 +9,14 @@ from src.ky024 import Controller
 from src.lite_server.web_server import WebServer
 from micropython import const
 
-ADC_PIN = const(4)
+ADC_PIN = const(32)
 
 def start_webserver(sensor):
     server = WebServer(enable_web_dav=True)
 
     @server.GET("/hall_voltage")
     def get_voltage():
+        print("get_voltage")
         return sensor.get_value()
 
     server.start_listening()
@@ -26,7 +27,7 @@ def connect(cb):
     if not sta_if.isconnected():
         print('connecting to network...')
         sta_if.active(True)
-        sta_if.connect('blah', 'blahblah')
+        sta_if.connect('Net5', 'JPfarm1959')
         while not sta_if.isconnected():
             pass
     print('network config:', sta_if.ifconfig())

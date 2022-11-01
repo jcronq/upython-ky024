@@ -1,0 +1,6 @@
+Unhandled exception in thread started by <bound_method>
+Traceback (most recent call last):
+  File "src/lite_server/web_server.py", line 95, in __run
+  File "src/main.py", line 19, in get_voltage
+TypeError: function takes 0 positional arguments but 1 were given
+
