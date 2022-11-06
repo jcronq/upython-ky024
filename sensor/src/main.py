@@ -5,6 +5,9 @@ Created on Fri Oct 31 16:00:35 2022
 @author: Jason Cronquist
 """
 import machine
+import esp32
+import json
+
 from src.ky024 import Controller
 from src.lite_server.web_server import WebServer
 from micropython import const
@@ -17,7 +20,12 @@ def start_webserver(sensor):
     @server.GET("/hall_voltage")
     def get_voltage():
         print("get_voltage")
-        return sensor.get_value()
+        return json.dumps(
+            {
+                "hall_sensor": sensor.get_value(),
+                "temperature": esp32.raw_temperature(),
+            }
+        )
 
     server.start_listening()
 
